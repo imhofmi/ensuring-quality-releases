@@ -51,8 +51,8 @@ stages:
     displayName: 'Deploy VM dependencies'
     environment:
       name:  'TEST'
-      resourceType: VirtualMachine
-      resourceName: 'eqr-AppService-vm'
+      #resourceType: VirtualMachine
+      #resourceName: 'eqr-AppService-vm'
       #tags: TAG NAME
     strategy:
       runOnce:
