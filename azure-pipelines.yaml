@@ -52,7 +52,6 @@ stages:
     environment:
       name:  'TEST'
       #resourceType: VirtualMachine
-      #resourceName: 'eqr-AppService-vm'
       #tags: TAG NAME
     strategy:
       runOnce:
@@ -69,7 +68,13 @@ stages:
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
-                pip3 install selenium
-                export PATH=$PATH:some/path
+                pip3 install 
+                
+                #install chromedriver & export path
+                if [ ! -f $(Pipeline.Workspace)/chromedriver ]; then
+                  wget https://chromedriver.storage.googleapis.com/92.0.4515.43/chromedriver_linux64.zip
+                  unzip chromedriver_linux64.zip
+                  export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
+                fi
 
 
