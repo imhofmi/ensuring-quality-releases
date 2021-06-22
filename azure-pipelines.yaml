@@ -38,7 +38,7 @@ stages:
             displayName: 'Deploy Azure Web App'
             inputs:
               azureSubscription: 'b2742311-e3ea-4811-b990-7f844fd08f0d'
-              appName: 'eqr-appservice'
+              appName: 'eqr-AppService-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
   # - deployment: VMDeploy
