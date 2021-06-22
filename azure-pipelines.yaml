@@ -50,7 +50,7 @@ stages:
   - deployment: VMDependencies
     displayName: 'Deploy VM dependencies'
     environment:
-      #name:  'eqr-AppService-vm'
+      name:  'TEST'
       resourceType: VirtualMachine
       resourceName: 'eqr-AppService-vm'
       #tags: TAG NAME
