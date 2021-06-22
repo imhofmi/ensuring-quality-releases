@@ -4,7 +4,7 @@ variables:
 stages:
 - stage: Build
   jobs:
-  - job: Build FakeRestAPI
+  - job: FakeRestAPI
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -27,7 +27,7 @@ stages:
 
 - stage: Deploy
   jobs:
-  - deployment: Deploy FakeRestAPI
+  - deployment: FakeRestAPI
     pool:
       vmImage: 'Ubuntu-16.04'
     environment: 'TEST'
