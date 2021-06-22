@@ -47,11 +47,12 @@ stages:
               appName: 'eqr-AppService-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-  - deployment: VMDeploy
+  - deployment: VMDependencies
     displayName: 'Deploy VM dependencies'
     environment:
-      name:  'eqr-AppService-vm'
+      #name:  'eqr-AppService-vm'
       resourceType: VirtualMachine
+      resourceName: 'eqr-AppService-vm'
       #tags: TAG NAME
     strategy:
       runOnce:
