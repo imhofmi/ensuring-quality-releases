@@ -4,7 +4,7 @@ variables:
 stages:
 - stage: Build
   jobs:
-  - job: Build
+  - job: Build FakeRestAPI
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -17,16 +17,17 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-- stage:
+
+- stage: Deploy
   jobs:
-  - deployment: FakeRestAPI
+  - deployment: Deploy FakeRestAPI
     pool:
       vmImage: 'Ubuntu-16.04'
     environment: 'TEST'
