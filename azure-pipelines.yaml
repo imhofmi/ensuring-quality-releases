@@ -91,7 +91,7 @@ stages:
             displayName: Run Regression Tests
             continueOnError: true
             inputs:
-              script: 'newman run ./automatedtesting/postman/StarterAPIs.json'
-              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              script: 'newman run StarterAPIs.json'
+              workingDirectory: 'ensuring-quality-releases/automatedtesting/postman'
 
                 #install jmeter
