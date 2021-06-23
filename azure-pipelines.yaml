@@ -38,8 +38,26 @@ stages:
       displayName: Run Regression Tests
       continueOnError: true
       inputs:
-        script: 'newman run ./automatedtesting/postman/StarterAPIs.json' # regression.json
+        script: 'newman run ./automatedtesting/postman/StarterAPIs.json --reporters cli,junit --reporter-junit-export ./TEST-regression.xml' #regression.json
         workingDirectory:  $(System.DefaultWorkingdirectory)
+    # - task: CmdLine@2
+    #   displayName: Run Validation Tests
+    #   continueOnError: true
+    #   inputs:
+    #     script: 'newman run ./automatedtesting/postman/StarterAPIs.json --reporters cli,junit --reporter-junit-export ./TEST-validation.xml' #validation.json
+    #     workingDirectory: $(System.DefaultWorkingdirectory)
+    - task: PublishTestResults@2
+      displayName: Publish Test Results
+      inputs:
+        testResultsFiles: '**/TEST-*.xml' 
+        searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
+        #mergeTestResults: false # Optional
+        #failTaskOnFailedTests: false # Optional
+        #testRunTitle: # Optional
+        #buildPlatform: # Optional
+        #buildConfiguration: # Optional
+        #publishRunAttachments: true # Optional
+    
 
 - stage: Deploy
   jobs:
@@ -93,23 +111,5 @@ stages:
                   unzip chromedriver_linux64.zip
                 fi
                 export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
-
-          # - task: PublishTestResults@2
-          #   inputs:
-          #     #testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-          #     #testResultsFiles: '**/TEST-*.xml' 
-          #     #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
-          #     #mergeTestResults: false # Optional
-          #     #failTaskOnFailedTests: false # Optional
-          #     #testRunTitle: # Optional
-          #     #buildPlatform: # Optional
-          #     #buildConfiguration: # Optional
-          #     #publishRunAttachments: true # Optional
-          # - task: CmdLine@2
-          #   displayName: Run Validation Tests
-          #   continueOnError: true
-          #   inputs:
-          #     script: 'newman run StarterAPIs.json' #validation.json
-          #     workingDirectory: 'imhofmi/ensuring-quality-releases/automatedtesting/postman'
 
                 #install jmeter
