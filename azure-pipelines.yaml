@@ -67,14 +67,31 @@ stages:
                 sudo apt-get upgrade -y
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
+          - task: Bash@3
+            displayName: 'Install Selenium, Chromium & chromedriver'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #install chromium & selenium
                 sudo apt-get install -y chromium-browser
-                pip3 install 
+                pip3 install selenium
                 
                 #install chromedriver & export path
                 if [ ! -f $(Pipeline.Workspace)/chromedriver ]; then
                   wget https://chromedriver.storage.googleapis.com/92.0.4515.43/chromedriver_linux64.zip
                   unzip chromedriver_linux64.zip
-                  export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
                 fi
+                export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
+          - task: CmdLine@2
+            displayName: Install Newman
+            inputs:
+              script: 'sudo npm install -g newman'
+              workingDirectory: $(System.DefaultWorkingDirectory)
+          - task: CmdLine@2
+            displayName: Run Regression Tests
+            continueOnError: true
+            inputs:
+              script: 'newman run StarterAPIs.json'
+              workingDirectory: 'automatedtesting/postman'
 
-
+                #install jmeter
