@@ -117,8 +117,7 @@ stages:
           - task: JMeterInstaller@0
             displayName: 'Install JMeter'
             inputs:
-            jmeterVersion: '5.4.1'
-          #run jemeter
+              jmeterVersion: '5.4.1'
           - task: Bash@3
             displayName: 'Run performance test'
             inputs:
