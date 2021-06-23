@@ -91,7 +91,7 @@ stages:
             displayName: Run Regression Tests
             continueOnError: true
             inputs:
-              script: 'newman run 'automatedtesting/postman/StarterAPIs.json' # regression.json
+              script: 'newman run automatedtesting/postman/StarterAPIs.json' # regression.json
               workingDirectory:  $(System.DefaultWorkingdirectory)
           # - task: PublishTestResults@2
           #   inputs:
