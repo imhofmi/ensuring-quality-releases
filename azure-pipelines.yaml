@@ -29,6 +29,10 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
+  - job: Tests
+    pool:
+      name: Hosted Ubuntu 1604
+    steps:
     - task: CmdLine@2
       displayName: Install Newman
       inputs:
