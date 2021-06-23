@@ -96,7 +96,6 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
-                
                 sudo apt-get upgrade -y
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
@@ -115,5 +114,25 @@ stages:
                   unzip chromedriver_linux64.zip
                 fi
                 export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
-
-                #install jmeter
+          - task: JMeterInstaller@0
+            displayName: 'Install JMeter'
+            inputs:
+            jmeterVersion: '5.4.1'
+          #run jemeter
+          - task: Bash@3
+            displayName: 'Run performance test'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #run jmeter
+          - task: Bash@3
+            displayName: 'Run endurance test'
+            inputs:
+              targetType: 'inline'
+              script: |
+                #run jmeter
+          - task: publishhtmlreport@1
+            displayName: 'Publish Test Results'
+            inputs:
+              htmlType: 'JMeter'
+              JmeterReportsPath: 'automatedtesting/jmeter'
