@@ -92,6 +92,6 @@ stages:
             continueOnError: true
             inputs:
               script: 'newman run StarterAPIs.json'
-              workingDirectory: 'automatedtesting/postman'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
 
                 #install jmeter
