@@ -1,6 +1,6 @@
 name: Azure Pipelines
 variables:
-  python.version: '3.7.6'
+  - group: eqr-variables
 stages:
 - stage: Infrastructure
   jobs:
@@ -17,7 +17,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          echo $test
+          echo $(test)
 
 - stage: Build
   jobs:
