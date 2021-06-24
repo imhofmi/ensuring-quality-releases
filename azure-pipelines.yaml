@@ -30,21 +30,21 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-  - job: ArtifactUITests
-    displayName: Artifact UITests
-    pool:
-      name: Hosted Ubuntu 1604
-    steps:
-    - task: ArchiveFiles@2
-      displayName: 'Archive UI test files'
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-        includeRootFolder: false
-        archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/selenium.zip
-        replaceExistingArchive: true
-    - upload: $(Build.ArtifactStagingDirectory)/selenium.zip
-      artifact: Selenium 
+  # - job: ArtifactUITests
+  #   displayName: Artifact UITests
+  #   pool:
+  #     name: Hosted Ubuntu 1604
+  #   steps:
+  #   - task: ArchiveFiles@2
+  #     displayName: 'Archive UI test files'
+  #     inputs:
+  #       rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+  #       includeRootFolder: false
+  #       archiveType: zip
+  #       archiveFile: $(Build.ArtifactStagingDirectory)/selenium.zip
+  #       replaceExistingArchive: true
+  #   - upload: $(Build.ArtifactStagingDirectory)/selenium.zip
+  #     artifact: Selenium 
 
 - stage: Deploy
   jobs:
@@ -115,23 +115,23 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t ./automatedtesting/jmeter/stress.jmx -l StressReports/results.jtl -e -o StressReports
+          jmeter -n -t ./automatedtesting/jmeter/stress.jmx -l ./automatedtesting/jmeter/StressReports/results.jtl -e -o ./automatedtesting/jmeter/StressReports
     - task: publishhtmlreport@1
       displayName: 'Publish Stress Test Results'
       inputs:
         htmlType: 'JMeter'
-        JmeterReportsPath: '$(Build.SourcesDirectory)/StressReports'
+        JmeterReportsPath: './automatedtesting/jmeter/StressReports'
     - task: Bash@3
       displayName: 'Run Endurance Test'
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t ./automatedtesting/jmeter/endurance.jmx -l EnduranceReports/results.jtl -e -o EnduranceReports
+          jmeter -n -t ./automatedtesting/jmeter/endurance.jmx -l ./automatedtesting/jmeter/EnduranceReports/results.jtl -e -o ./automatedtesting/jmeter/EnduranceReports
     - task: publishhtmlreport@1
       displayName: 'Publish Endurance Test Results'
       inputs:
         htmlType: 'JMeter'
-        JmeterReportsPath: '$(Build.SourcesDirectory)/EnduranceReports'
+        JmeterReportsPath: './automatedtesting/jmeter/EnduranceReports'
 
   - job: UITests
     displayName: UI Tests
@@ -160,13 +160,13 @@ stages:
             unzip chromedriver_linux64.zip
           fi
           export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
-    - download: current
-      displayName: 'Get UI test artifact'
-      artifact: Selenium
+    # - download: current
+    #   displayName: 'Get UI test artifact'
+    #   artifact: Selenium
     - task: Bash@3
       displayName: 'Run UI test'
       inputs:
         targetType: 'inline'
         script: |
-          unzip -o $(Pipeline.Workspace)/Selenium/selenium.zip -d .
-          python3 ui.py
+          #unzip -o $(Pipeline.Workspace)/Selenium/selenium.zip -d .
+          python3 ./automatedtesting/selenium/ui.py
