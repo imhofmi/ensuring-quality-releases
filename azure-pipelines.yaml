@@ -5,19 +5,19 @@ stages:
 - stage: Infrastructure
   jobs:
   - job: Terraform TODO
-  pool:
+    pool:
       name: Hosted Ubuntu 1604
-  steps:
-  - task: TerraformInstaller@0
-    displayName: Install Terraform
-    inputs:
-      terraformVersion: '0.13.4' 
-  - task: Bash@3
-    displayName: 'Test variables'
-    inputs:
-      targetType: 'inline'
-      script: |
-        echo $(test)
+    steps:
+    - task: TerraformInstaller@0
+      displayName: Install Terraform
+      inputs:
+        terraformVersion: '0.13.4' 
+    - task: Bash@3
+      displayName: 'Test variables'
+      inputs:
+        targetType: 'inline'
+        script: |
+          echo $(test)
 
 - stage: Build
   jobs:
