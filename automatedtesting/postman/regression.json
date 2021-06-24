@@ -106,7 +106,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employee/{{id}}",
+					"raw": "http://dummy.restapiexample.com/api/v1/employee/21",
 					"protocol": "http",
 					"host": [
 						"dummy",
@@ -117,7 +117,7 @@
 						"api",
 						"v1",
 						"employee",
-						"{{id}}"
+						"21"
 					]
 				}
 			},
@@ -143,10 +143,10 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"salary\": \"{{salary}}\",\r\n    \"age\": \"43\"\r\n}"
+					"raw": "{\r\n    \"age\": \"43\"\r\n}"
 				},
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/update/{{id}}",
+					"raw": "http://dummy.restapiexample.com/api/v1/update/21",
 					"protocol": "http",
 					"host": [
 						"dummy",
@@ -157,7 +157,7 @@
 						"api",
 						"v1",
 						"update",
-						"{{id}}"
+						"21"
 					]
 				}
 			},
