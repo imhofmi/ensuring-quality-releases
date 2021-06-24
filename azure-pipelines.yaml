@@ -29,7 +29,7 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-  - job: UI Tests
+  - job: UITests
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -43,7 +43,7 @@ stages:
         replaceExistingArchive: true
     - upload: $(Build.ArtifactStagingDirectory)/selenium.zip
       artifact: Selenium 
-  - job: Integration Tests
+  - job: IntegrationTests
     pool:
       name: Hosted Ubuntu 1604
     steps:
