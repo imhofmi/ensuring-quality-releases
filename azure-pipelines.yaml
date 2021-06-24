@@ -136,7 +136,8 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                ls -l
+                unzip -o $(Pipeline.Workspace)/Selenium/selenium.zip -d .
+                python3 ui.py
           - task: JMeterInstaller@0
             displayName: 'Install JMeter'
             inputs:
