@@ -9,7 +9,7 @@ stages:
 
 - stage: Build
   jobs:
-  - job: FakeRestAPI
+  - job: ArtifactFakeRestAPI
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -29,7 +29,7 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-  - job: UITests
+  - job: ArtifactUITests
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -44,11 +44,10 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)/selenium.zip
       artifact: Selenium 
 
-    
-
 - stage: Deploy
   jobs:
   - deployment: FakeRestAPI
+    displayName: 'WebApp FakeRestAPI'
     pool:
       vmImage: 'Ubuntu-16.04'
     environment: 'TEST'
@@ -63,50 +62,6 @@ stages:
               appName: 'eqr-AppService-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-  - deployment: VMDependencies
-    displayName: 'Deploy VM dependencies'
-    environment:
-      name:  'TEST'
-      #resourceType: VirtualMachine
-      #tags: TAG NAME
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: Bash@3
-            displayName: 'Setup VM'
-            inputs:
-              targetType: 'inline'
-              script: |
-                #! /bin/bash
-                sudo apt-get upgrade -y
-                sudo apt-get install python3-pip -y
-                sudo apt-get install unzip -y
-          - task: Bash@3
-            displayName: 'Install Selenium, Chromium & chromedriver'
-            inputs:
-              targetType: 'inline'
-              script: |
-                #install chromium & selenium
-                sudo apt-get install -y chromium-browser
-                pip3 install selenium
-                
-                #install chromedriver & export path
-                if [ ! -f $(Pipeline.Workspace)/chromedriver ]; then
-                  wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip
-                  unzip chromedriver_linux64.zip
-                fi
-                export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
-          - download: current
-            displayName: 'Get UI test artifact'
-            artifact: Selenium
-          - task: Bash@3
-            displayName: 'Run UI test'
-            inputs:
-              targetType: 'inline'
-              script: |
-                unzip -o $(Pipeline.Workspace)/Selenium/selenium.zip -d .
-                python3 ui.py
 
 
 - stage: Test
@@ -173,3 +128,40 @@ stages:
       inputs:
         htmlType: 'JMeter'
         JmeterReportsPath: '$(Build.SourcesDirectory)/EnduranceReports'
+
+  - job: UITests
+    steps:
+    - task: Bash@3
+      displayName: 'Setup VM'
+      inputs:
+        targetType: 'inline'
+        script: |
+          #! /bin/bash
+          sudo apt-get upgrade -y
+          sudo apt-get install python3-pip -y
+          sudo apt-get install unzip -y
+    - task: Bash@3
+      displayName: 'Install Selenium, Chromium & chromedriver'
+      inputs:
+        targetType: 'inline'
+        script: |
+          #install chromium & selenium
+          sudo apt-get install -y chromium-browser
+          pip3 install selenium
+          
+          #install chromedriver & export path
+          if [ ! -f $(Pipeline.Workspace)/chromedriver ]; then
+            wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip
+            unzip chromedriver_linux64.zip
+          fi
+          export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
+    - download: current
+      displayName: 'Get UI test artifact'
+      artifact: Selenium
+    - task: Bash@3
+      displayName: 'Run UI test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          unzip -o $(Pipeline.Workspace)/Selenium/selenium.zip -d .
+          python3 ui.py
