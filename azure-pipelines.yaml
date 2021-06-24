@@ -17,7 +17,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          echo $(test)
+          echo $test
 
 - stage: Build
   jobs:
