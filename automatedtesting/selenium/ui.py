@@ -6,10 +6,11 @@ from selenium.webdriver.common.by import By
 def start_browser():
     print ('Starting the browser...')
     # --uncomment when running in Azure DevOps.
-    # options = ChromeOptions()
-    # options.add_argument("--headless") 
-    # driver = webdriver.Chrome(options=options)
-    driver = webdriver.Chrome()
+    options = ChromeOptions()
+    options.add_argument("--headless") 
+    driver = webdriver.Chrome(options=options)
+    # --uncomment when running locally.
+    # driver = webdriver.Chrome()
     print ('Browser started successfully.')
     return driver
 
