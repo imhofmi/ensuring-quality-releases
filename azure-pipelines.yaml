@@ -114,6 +114,12 @@ stages:
                   unzip chromedriver_linux64.zip
                 fi
                 export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
+          - task: Bash@3
+          displayName: 'Run UI test'
+            inputs:
+              targetType: 'inline'
+              script: |
+                ls -l
           - task: JMeterInstaller@0
             displayName: 'Install JMeter'
             inputs:
@@ -140,3 +146,4 @@ stages:
             inputs:
               htmlType: 'JMeter'
               JmeterReportsPath: '$(Build.SourcesDirectory)/EnduranceReports'
+          
