@@ -42,19 +42,19 @@ stages:
       displayName: Run Regression Tests
       continueOnError: true
       inputs:
-        script: 'newman run ./automatedtesting/postman/StarterAPIs.json --reporters cli,junit --reporter-junit-export ./TEST-regression.xml' #regression.json
+        script: 'newman run ./automatedtesting/postman/regression.json --reporters cli,junit --reporter-junit-export ./automatedtesting/postman/TEST-regression.xml'
         workingDirectory:  $(System.DefaultWorkingdirectory)
-    # - task: CmdLine@2
-    #   displayName: Run Validation Tests
-    #   continueOnError: true
-    #   inputs:
-    #     script: 'newman run ./automatedtesting/postman/StarterAPIs.json --reporters cli,junit --reporter-junit-export ./TEST-validation.xml' #validation.json
-    #     workingDirectory: $(System.DefaultWorkingdirectory)
+    - task: CmdLine@2
+      displayName: Run Validation Tests
+      continueOnError: true
+      inputs:
+        script: 'newman run ./automatedtesting/postman/validation.json --reporters cli,junit --reporter-junit-export ./automatedtesting/postman/TEST-validation.xml'
+        workingDirectory: $(System.DefaultWorkingdirectory)
     - task: PublishTestResults@2
       displayName: Publish Test Results
       inputs:
         testResultsFiles: '**/TEST-*.xml' 
-        searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
+        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman/' # Optional
         #mergeTestResults: false # Optional
         #failTaskOnFailedTests: false # Optional
         #testRunTitle: # Optional
@@ -110,7 +110,7 @@ stages:
                 
                 #install chromedriver & export path
                 if [ ! -f $(Pipeline.Workspace)/chromedriver ]; then
-                  wget https://chromedriver.storage.googleapis.com/92.0.4515.43/chromedriver_linux64.zip
+                  wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip
                   unzip chromedriver_linux64.zip
                 fi
                 export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
