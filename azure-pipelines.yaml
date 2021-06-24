@@ -43,38 +43,7 @@ stages:
         replaceExistingArchive: true
     - upload: $(Build.ArtifactStagingDirectory)/selenium.zip
       artifact: Selenium 
-  - job: IntegrationTests
-    pool:
-      name: Hosted Ubuntu 1604
-    steps:
-    - task: CmdLine@2
-      displayName: Install Newman
-      inputs:
-        script: 'sudo npm install -g newman'
-        workingDirectory: $(System.DefaultWorkingDirectory)
-    - task: CmdLine@2
-      displayName: Run Regression Tests
-      continueOnError: true
-      inputs:
-        script: 'newman run ./automatedtesting/postman/regression.json --reporters cli,junit --reporter-junit-export ./automatedtesting/postman/TEST-regression.xml'
-        workingDirectory:  $(System.DefaultWorkingdirectory)
-    - task: CmdLine@2
-      displayName: Run Validation Tests
-      continueOnError: true
-      inputs:
-        script: 'newman run ./automatedtesting/postman/validation.json --reporters cli,junit --reporter-junit-export ./automatedtesting/postman/TEST-validation.xml'
-        workingDirectory: $(System.DefaultWorkingdirectory)
-    - task: PublishTestResults@2
-      displayName: Publish Test Results
-      inputs:
-        testResultsFiles: '**/TEST-*.xml' 
-        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman/' # Optional
-        #mergeTestResults: false # Optional
-        #failTaskOnFailedTests: false # Optional
-        #testRunTitle: # Optional
-        #buildPlatform: # Optional
-        #buildConfiguration: # Optional
-        publishRunAttachments: true # Optional
+
     
 
 - stage: Deploy
@@ -138,30 +107,69 @@ stages:
               script: |
                 unzip -o $(Pipeline.Workspace)/Selenium/selenium.zip -d .
                 python3 ui.py
-          - task: JMeterInstaller@0
-            displayName: 'Install JMeter'
-            inputs:
-              jmeterVersion: '5.4.1'
-          - task: Bash@3
-            displayName: 'Run stress test'
-            inputs:
-              targetType: 'inline'
-              script: |
-                jmeter -n -t $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/stress.jmx -l StressReports/results.jtl -e -o StressReports
-          - task: publishhtmlreport@1
-            displayName: 'Publish Stress Test Results'
-            inputs:
-              htmlType: 'JMeter'
-              JmeterReportsPath: '$(Build.SourcesDirectory)/StressReports'
-          - task: Bash@3
-            displayName: 'Run endurance test'
-            inputs:
-              targetType: 'inline'
-              script: |
-                jmeter -n -t $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/endurance.jmx -l EnduranceReports/results.jtl -e -o EnduranceReports
-          - task: publishhtmlreport@1
-            displayName: 'Publish Endurance Test Results'
-            inputs:
-              htmlType: 'JMeter'
-              JmeterReportsPath: '$(Build.SourcesDirectory)/EnduranceReports'
-          
+
+
+- stage: Test
+  jobs:
+  - job: IntegrationTests
+    pool:
+      name: Hosted Ubuntu 1604
+    steps:
+    - task: CmdLine@2
+      displayName: Install Newman
+      inputs:
+        script: 'sudo npm install -g newman'
+        workingDirectory: $(System.DefaultWorkingDirectory)
+    - task: CmdLine@2
+      displayName: Run Regression Tests
+      continueOnError: true
+      inputs:
+        script: 'newman run ./automatedtesting/postman/regression.json --reporters cli,junit --reporter-junit-export ./automatedtesting/postman/TEST-regression.xml'
+        workingDirectory:  $(System.DefaultWorkingdirectory)
+    - task: CmdLine@2
+      displayName: Run Validation Tests
+      continueOnError: true
+      inputs:
+        script: 'newman run ./automatedtesting/postman/validation.json --reporters cli,junit --reporter-junit-export ./automatedtesting/postman/TEST-validation.xml'
+        workingDirectory: $(System.DefaultWorkingdirectory)
+    - task: PublishTestResults@2
+      displayName: Publish Test Results
+      inputs:
+        testResultsFiles: '**/TEST-*.xml' 
+        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman/' # Optional
+        #mergeTestResults: false # Optional
+        #failTaskOnFailedTests: false # Optional
+        #testRunTitle: # Optional
+        #buildPlatform: # Optional
+        #buildConfiguration: # Optional
+        publishRunAttachments: true # Optional
+    - job: PerformanceTests
+    pool:
+      name: Hosted Ubuntu 1604
+    steps:
+    - task: JMeterInstaller@0
+      displayName: 'Install JMeter'
+      inputs:
+        jmeterVersion: '5.4.1'
+    - task: Bash@3
+      displayName: 'Run Stress Test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          jmeter -n -t ./automatedtesting/jmeter/stress.jmx -l StressReports/results.jtl -e -o StressReports
+    - task: publishhtmlreport@1
+      displayName: 'Publish Stress Test Results'
+      inputs:
+        htmlType: 'JMeter'
+        JmeterReportsPath: '$(Build.SourcesDirectory)/StressReports'
+    - task: Bash@3
+      displayName: 'Run Endurance Test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          jmeter -n -t ./automatedtesting/jmeter/endurance.jmx -l EnduranceReports/results.jtl -e -o EnduranceReports
+    - task: publishhtmlreport@1
+      displayName: 'Publish Endurance Test Results'
+      inputs:
+        htmlType: 'JMeter'
+        JmeterReportsPath: '$(Build.SourcesDirectory)/EnduranceReports'
