@@ -119,19 +119,24 @@ stages:
             inputs:
               jmeterVersion: '5.4.1'
           - task: Bash@3
-            displayName: 'Run performance test'
+            displayName: 'Run stress test'
             inputs:
               targetType: 'inline'
               script: |
-                #run jmeter
+                jmeter -n -t automatedtesting/jmeter/stress.jmx -l StressReports/results.jtl -e -o Stresseports
+          - task: publishhtmlreport@1
+            displayName: 'Publish Stress Test Results'
+            inputs:
+              htmlType: 'JMeter'
+              JmeterReportsPath: '$(Build.SourcesDirectory)automatedtesting/jmeter'
           - task: Bash@3
             displayName: 'Run endurance test'
             inputs:
               targetType: 'inline'
               script: |
-                #run jmeter
+                jmeter -n -t automatedtesting/jmeter/endurance.jmx -l EnduranceReports/results.jtl -e -o EnduranceReports
           - task: publishhtmlreport@1
-            displayName: 'Publish Test Results'
+            displayName: 'Publish Endurance Test Results'
             inputs:
               htmlType: 'JMeter'
-              JmeterReportsPath: 'automatedtesting/jmeter'
+              JmeterReportsPath: '$(Build.SourcesDirectory)automatedtesting/jmeter'
