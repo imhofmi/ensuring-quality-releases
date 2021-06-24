@@ -94,7 +94,7 @@ stages:
     - task: JMeterInstaller@0
       displayName: 'Install JMeter'
       inputs:
-        jmeterVersion: '5.3'
+        jmeterVersion: '5.4.1'
     - task: Bash@3
       displayName: 'Run Stress Test'
       inputs:
@@ -104,7 +104,7 @@ stages:
     - task: publishhtmlreport@1
       displayName: 'Publish Stress Test Results'
       inputs:
-        htmlType: 'Jmeter'
+        htmlType: 'OtherComplexReport'
         JmeterReportsPath: './automatedtesting/jmeter/StressReports'
     - task: Bash@3
       displayName: 'Run Endurance Test'
@@ -115,7 +115,7 @@ stages:
     - task: publishhtmlreport@1
       displayName: 'Publish Endurance Test Results'
       inputs:
-        htmlType: 'Jmeter'
+        htmlType: 'OtherComplexReport'
         JmeterReportsPath: './automatedtesting/jmeter/EnduranceReports'
 
   - job: UITests
