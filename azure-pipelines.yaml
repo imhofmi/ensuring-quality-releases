@@ -123,7 +123,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                jmeter -n -t $(Build.SourcesDirectory)/automatedtesting/jmeter/stress.jmx -l StressReports/results.jtl -e -o StressReports
+                jmeter -n -t $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/stress.jmx -l StressReports/results.jtl -e -o StressReports
           - task: publishhtmlreport@1
             displayName: 'Publish Stress Test Results'
             inputs:
@@ -134,7 +134,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                jmeter -n -t $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance.jmx -l EnduranceReports/results.jtl -e -o EnduranceReports
+                jmeter -n -t $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/endurance.jmx -l EnduranceReports/results.jtl -e -o EnduranceReports
           - task: publishhtmlreport@1
             displayName: 'Publish Endurance Test Results'
             inputs:
