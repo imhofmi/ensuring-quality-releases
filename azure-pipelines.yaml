@@ -10,6 +10,7 @@ stages:
 - stage: Build
   jobs:
   - job: ArtifactFakeRestAPI
+    displayName: Artifact FakeRestAPI
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -30,6 +31,7 @@ stages:
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
   - job: ArtifactUITests
+    displayName: Artifact UITests
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -67,6 +69,7 @@ stages:
 - stage: Test
   jobs:
   - job: IntegrationTests
+    displayName: Integration Tests
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -99,6 +102,7 @@ stages:
         #buildConfiguration: # Optional
         publishRunAttachments: true # Optional
   - job: PerformanceTests
+    displayName: Performance Tests
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -130,6 +134,7 @@ stages:
         JmeterReportsPath: '$(Build.SourcesDirectory)/EnduranceReports'
 
   - job: UITests
+    displayName: UI Tests
     steps:
     - task: Bash@3
       displayName: 'Setup VM'
