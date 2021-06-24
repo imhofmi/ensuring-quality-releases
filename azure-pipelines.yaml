@@ -4,14 +4,14 @@ variables:
 stages:
 - stage: Infrastructure
   jobs:
-  - job: Terraform TODO
+  - job: Terraform
     pool:
       name: Hosted Ubuntu 1604
     steps:
-    - task: TerraformInstaller@0
+    - task: TerraformInstaller
       displayName: Install Terraform
       inputs:
-        terraformVersion: '0.13.4' 
+        terraformVersion: '0.15.4' 
     - task: Bash@3
       displayName: 'Test variables'
       inputs:
