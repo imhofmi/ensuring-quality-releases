@@ -123,20 +123,20 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                jmeter -n -t $(Build.SourcesDirectory)/automatedtesting/jmeter/stress.jmx -l StressReports/results.jtl -e -o Stresseports
+                jmeter -n -t ./automatedtesting/jmeter/stress.jmx -l ./automatedtesting/jmeter/StressReports/results.jtl -e -o ./automatedtesting/jmeter/StressReports
           - task: publishhtmlreport@1
             displayName: 'Publish Stress Test Results'
             inputs:
               htmlType: 'JMeter'
-              JmeterReportsPath: '$(Build.SourcesDirectory)/automatedtesting/jmeter'
+              JmeterReportsPath: './automatedtesting/jmeter'
           - task: Bash@3
             displayName: 'Run endurance test'
             inputs:
               targetType: 'inline'
               script: |
-                jmeter -n -t $(Build.SourcesDirectory)/automatedtesting/jmeter/endurance.jmx -l EnduranceReports/results.jtl -e -o EnduranceReports
+                jmeter -n -t ./automatedtesting/jmeter/endurance.jmx -l ./automatedtesting/jmeter/EnduranceReports/results.jtl -e -o ./automatedtesting/jmeter/EnduranceReports
           - task: publishhtmlreport@1
             displayName: 'Publish Endurance Test Results'
             inputs:
               htmlType: 'JMeter'
-              JmeterReportsPath: '$(Build.SourcesDirectory)/automatedtesting/jmeter'
+              JmeterReportsPath: './automatedtesting/jmeter'
