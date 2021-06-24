@@ -115,7 +115,7 @@ stages:
                 fi
                 export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
           - task: Bash@3
-          displayName: 'Run UI test'
+            displayName: 'Run UI test'
             inputs:
               targetType: 'inline'
               script: |
