@@ -29,7 +29,21 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-  - job: Tests
+  - job: UI Tests
+    pool:
+      name: Hosted Ubuntu 1604
+    steps:
+    - task: ArchiveFiles@2
+      displayName: 'Archive UI test files'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/selenium.zip
+        replaceExistingArchive: true
+    - upload: $(Build.ArtifactStagingDirectory)/selenium.zip
+      artifact: Selenium 
+  - job: Integration Tests
     pool:
       name: Hosted Ubuntu 1604
     steps:
@@ -114,6 +128,9 @@ stages:
                   unzip chromedriver_linux64.zip
                 fi
                 export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
+          - download: current
+            displayName: 'Get UI test artifact'
+            artifact: Selenium
           - task: Bash@3
             displayName: 'Run UI test'
             inputs:
