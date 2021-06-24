@@ -40,7 +40,7 @@ print('Adding cart items')
 for inventory_item in inventory_items:
     button = inventory_item.find_element_by_css_selector("button[class='btn btn_primary btn_small btn_inventory']")
     button.click()
-    print('Added item', inventory_item.find_element_by_css_selector("div[class='inventory_item_name']").text)
+    print('  Added item', inventory_item.find_element_by_css_selector("div[class='inventory_item_name']").text)
 print('Added cart items')
 
 #Open cart
@@ -53,7 +53,7 @@ cart_items = driver.find_elements(By.CLASS_NAME, "cart_item")
 print('Removing cart items')
 for cart_item in cart_items:
     button = cart_item.find_element_by_css_selector("button[class='btn btn_secondary btn_small cart_button']")
-    print('Removed item', cart_item.find_element_by_css_selector("div[class='inventory_item_name']").text)
+    print('  Removed item', cart_item.find_element_by_css_selector("div[class='inventory_item_name']").text)
     button.click()
 print('Removed cart items')
 
