@@ -24,18 +24,6 @@ stages:
         backendAzureRmContainerName: '$(container_name)'
         backendAzureRmKey: '$(key)'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-    # - task: terraforminit@0
-    #   displayName: 'Terraform Init'
-    #   inputs:
-    #     cwd: '$(System.DefaultWorkingDirectory)/terraform'
-    #     useazurerm: true
-    #     azureSubscription: 'eqr-sp'
-    #     #backendConfigPath: 'backendconfigfile'
-    #     initbackend: true
-    #     backendrg: 'eq-tstate-rg'
-    #     backendstorage: 'tstate9522'
-    #     backendcontainer: 'tstate'
-    #     backendKey: 'terraform.tfstate'
     #Terraform plan
     - task: TerraformTaskV1@0
       displayName: 'Terraform Plan'
@@ -44,15 +32,7 @@ stages:
         command: 'plan'
         environmentServiceNameAzureRM: '$(sp_display_name)'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-    # - task: terraformplan@0
-    #   displayName: 'Terraform Plan'
-    #   inputs:
-    #     cwd: 'workdir'
-    #     useazurerm: true
-    #     connectedServiceNameARM: 'eqr-sp'
-    #     usevarsfile: true
-    #     usevars: true
-    #     savePlanResult: false
+    #Terraform apply
     - task: Bash@3
       displayName: 'Test variables'
       inputs:
