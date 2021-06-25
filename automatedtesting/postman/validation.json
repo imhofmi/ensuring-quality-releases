@@ -170,7 +170,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"UserName\": \"{{name}}\",\r\n    \"Password\": \"{{password}}\"\r\n}",
+					"raw": "{\r\n    \"UserName\": \"Michael\",\r\n    \"Password\": \"secret\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
