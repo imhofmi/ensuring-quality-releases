@@ -1,101 +1,19 @@
 {
 	"info": {
-		"_postman_id": "2a876c62-9c3c-4275-9138-dafc7977e7c3",
+		"_postman_id": "24c99128-d835-4b99-8d8a-65b121abe95a",
 		"name": "Udacity Regression",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Get All Employees",
+			"name": "Get All Users",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employees",
-					"protocol": "http",
-					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employees"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create Employee",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							"var json = pm.response.json();",
-							"pm.environment.set(\"id\", json.data.id);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/create",
-					"protocol": "http",
-					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Employee",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful response\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -106,32 +24,108 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employee/21",
-					"protocol": "http",
+					"raw": "https://eqr-appservice-appservice.azurewebsites.net/api/Users",
+					"protocol": "https",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"eqr-appservice-appservice",
+						"azurewebsites",
+						"net"
 					],
 					"path": [
 						"api",
-						"v1",
-						"employee",
-						"21"
+						"Users"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update Employee",
+			"name": "Create User",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful response\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"UserName\": \"{{name}}\",\n    \"Password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://eqr-appservice-appservice.azurewebsites.net/api/Users",
+					"protocol": "https",
+					"host": [
+						"eqr-appservice-appservice",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://eqr-appservice-appservice.azurewebsites.net/api/Users/1",
+					"protocol": "https",
+					"host": [
+						"eqr-appservice-appservice",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"Users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -143,35 +137,39 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"age\": \"43\"\r\n}"
+					"raw": "{\r\n    \"UserName\": \"{{name}}\",\r\n    \"Password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/update/21",
-					"protocol": "http",
+					"raw": "https://eqr-appservice-appservice.azurewebsites.net/api/Users/1",
+					"protocol": "https",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"eqr-appservice-appservice",
+						"azurewebsites",
+						"net"
 					],
 					"path": [
 						"api",
-						"v1",
-						"update",
-						"21"
+						"Users",
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete Employee",
+			"name": "Delete User",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Successful response\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -179,21 +177,20 @@
 				}
 			],
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employee/{{id}",
-					"protocol": "http",
+					"raw": "https://eqr-appservice-appservice.azurewebsites.net/api/Users/1",
+					"protocol": "https",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"eqr-appservice-appservice",
+						"azurewebsites",
+						"net"
 					],
 					"path": [
 						"api",
-						"v1",
-						"employee",
-						"{{id}"
+						"Users",
+						"1"
 					]
 				}
 			},
