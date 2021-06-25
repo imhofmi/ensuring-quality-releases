@@ -7,7 +7,7 @@ The CI/CD pipeline consists of four stages:
 * Stage 3. [Deploy](#deploy)
 * Stage 4. [Test](#test)
 
-![Pipeline overview](screenshots/S1-pipeline-overview "Pipeline Overview")
+![Pipeline overview](screenshots/S1-pipeline-overview.PNG "Pipeline Overview")
 
 ## Infrastructure
 
@@ -20,19 +20,19 @@ The Infrastructure stage uses the terraform configuration in the 'terraform' dir
 * Terraform Plan
 * Terraform Apply
 
-![Infrastructure Terraform](screenshots/S2-infrastructure-terraformn "Infrastructure Terraform")
+![Infrastructure Terraform](screenshots/S2-infrastructure-terraform.PNG "Infrastructure Terraform")
 
 ## Build
 
 The Build stage packages the FakeRestAPI web application contained in the 'fakerestapi' directory into an artifact.
 
-![Build Artifact](screenshots/S3-build-artifact "Build Artifact")
+![Build Artifact](screenshots/S3-build-artifact.PNG "Build Artifact")
 
 ## Deploy
 
 The Deploy stage deploys the artifact generated in the Build stage to the Azure AppService created in the Infrastructure stage.
 
-![Deploy Webapp](screenshots/S4-deploy-webapp "Deploy Webapp")
+![Deploy Webapp](screenshots/S4-deploy-webapp.PNG "Deploy Webapp")
 
 
 ## Test
@@ -50,15 +50,15 @@ The tests were created using Postman and can be found in 'automatedtesting/postm
 
 Execution within the pipeline is done via newman.
 
-![Test Integration Regression](screenshots/S5-test-integration-regression "Test Integration Regression")
+![Test Integration Regression](screenshots/S5-test-integration-regression.PNG "Test Integration Regression")
 
-![Test Integration Validation](screenshots/S6-test-integration-validation "Test Integration Validation")
+![Test Integration Validation](screenshots/S6-test-integration-validation.PNG "Test Integration Validation")
 
 Test results are uploaded to the pipeline and are directly visible:
 
-![Test Integration Results Publish](screenshots/S7-test-integration-results-publish "Test Integration Results Publish")
+![Test Integration Results Publish](screenshots/S7-test-integration-results-publish.PNG "Test Integration Results Publish")
 
-![Test Integration Results](screenshots/S8-test-integration-results "Test Integration Results")
+![Test Integration Results](screenshots/S8-test-integration-results.PNG "Test Integration Results")
 
 ### Performance Tests
 
@@ -68,11 +68,11 @@ JMeter is used to perform two types of performance tests:
 
 * Stress Test: High load during short period of time.
 
-![Test Performance Stress](screenshots/S9-test-performance-stress "Test Performance Stress")
+![Test Performance Stress](screenshots/S9-test-performance-stress.PNG "Test Performance Stress")
 
 * Endurance Test: Constant load over long period of time.
 
-![Test Performance Endurance](screenshots/S10-test-performance-endurance "Test Performance Endurance")
+![Test Performance Endurance](screenshots/S10-test-performance-endurance.PNG "Test Performance Endurance")
 
 <!-- Test results are uploaded to the pipeline and are directly visible:  -->
 <!-- ![Test Performance Result](screenshots/S10-test-performance-result "Test Performance Result") -->
@@ -83,7 +83,7 @@ UI Tests ensure that the functionality of an app works as expected.
 
 Selenium is used to test a web shop by adding items to a cart and removing them.
 
-![Test UI](screenshots/S11-test-ui "Test UI")
+![Test UI](screenshots/S11-test-ui.PNG "Test UI")
 
 
 ## Monitoring
@@ -92,18 +92,18 @@ Selenium is used to test a web shop by adding items to a cart and removing them.
 
 An alert is triggered whenever too many 404 errors occur:
 
-![Alarm Rule Graph](screenshots/S12-alarm-rule-graph "Alarm Rule Graph")
+![Alarm Rule Graph](screenshots/S12-alarm-rule-graph.PNG "Alarm Rule Graph")
 
 It automatically generates eMails as shown below:
 
-![Alarm Rule eMail](screenshots/S13-alarm-rule-email "Alarm Rule eMail")
+![Alarm Rule eMail](screenshots/S13-alarm-rule-email.PNG "Alarm Rule eMail")
 
 ### Logging
 
 Azure log analytics is used for the webapp http logs:
 
-![Logs HTTP](screenshots/S14-logs-http "Logs HTTP")
+![Logs HTTP](screenshots/S14-logs-http.PNG "Logs HTTP")
 
 And is also used for the UI test logs produced by selenium:
 
-![Logs UI Test](screenshots/S15-logs-ui-test "Logs UI Test")
+![Logs UI Test](screenshots/S15-logs-ui-test.PNG "Logs UI Test")
