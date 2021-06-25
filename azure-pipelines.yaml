@@ -29,6 +29,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
+        environmentServiceNameAzureRM: '$(sp_display_name)'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     #Terraform plan
     - task: Bash@3
