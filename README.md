@@ -40,7 +40,7 @@ The Deploy stage deploys the artifact generated in the Build stage to the Azure 
 The Test stage consists of three different steps:
 * [Integration Tests](#integration-tests)
 * [Performance Tests](#performance-tests)
-* [UI Tests](#-ui-tests)
+* [UI Tests](#ui-tests)
 
 ### Integration Tests
 
@@ -77,7 +77,7 @@ JMeter is used to perform two types of performance tests:
 <!-- Test results are uploaded to the pipeline and are directly visible:  -->
 <!-- ![Test Performance Result](screenshots/S10-test-performance-result "Test Performance Result") -->
 
-### UI tests
+### UI Tests
 
 UI Tests ensure that the functionality of an app works as expected.
 
