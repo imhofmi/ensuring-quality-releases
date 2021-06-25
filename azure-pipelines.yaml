@@ -11,7 +11,19 @@ stages:
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
       displayName: Install Terraform
       inputs:
-        terraformVersion: '0.15.4' 
+        terraformVersion: '0.15.4'
+    #Terraform init
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform Init'
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendAzureRmResourceGroupName: '$(resource_group_name)'
+        backendAzureRmStorageAccountName: '$(storage_account_name)'
+        backendAzureRmContainerName: '$(container_name)'
+        backendAzureRmKey: '$(key)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    #Terraform plan
     - task: Bash@3
       displayName: 'Test variables'
       inputs:
