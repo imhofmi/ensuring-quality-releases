@@ -18,6 +18,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
+        backendServiceArm: '$(sp_display_name)'
         backendAzureRmResourceGroupName: '$(resource_group_name)'
         backendAzureRmStorageAccountName: '$(storage_account_name)'
         backendAzureRmContainerName: '$(container_name)'
