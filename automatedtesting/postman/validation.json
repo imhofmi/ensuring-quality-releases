@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f2ddd3e5-f429-4645-b6af-876129286305",
+		"_postman_id": "a1d69a16-14fb-4757-a20a-95aa0e1f281e",
 		"name": "Udacity Validation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -70,7 +70,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"UserName\": \"{{name}}\",\n    \"Password\": \"{{password}}\"\n}",
+					"raw": "{\n    \"UserName\": \"Michael\",\n    \"Password\": \"secret\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
