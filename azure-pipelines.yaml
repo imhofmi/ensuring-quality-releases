@@ -13,46 +13,46 @@ stages:
       inputs:
         terraformVersion: '0.15.4'
     #Terraform init
-    # - task: TerraformTaskV1@0
-    #   displayName: 'Terraform Init'
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'init'
-    #     backendServiceArm: '$(sp_display_name)'
-    #     backendAzureRmResourceGroupName: '$(resource_group_name)'
-    #     backendAzureRmStorageAccountName: '$(storage_account_name)'
-    #     backendAzureRmContainerName: '$(container_name)'
-    #     backendAzureRmKey: '$(key)'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-    - task: terraforminit@0
+    - task: TerraformTaskV1@0
       displayName: 'Terraform Init'
       inputs:
-        cwd: '$(System.DefaultWorkingDirectory)/terraform'
-        useazurerm: true
-        azureSubscription: 'eqr-sp'
-        #backendConfigPath: 'backendconfigfile'
-        initbackend: true
-        backendrg: 'eq-tstate-rg'
-        backendstorage: 'tstate9522'
-        backendcontainer: 'tstate'
-        backendKey: 'terraform.tfstate'
-    # - task: TerraformTaskV1@0
-    #   displayName: 'Terraform Plan'
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: '$(sp_display_name)'
+        backendAzureRmResourceGroupName: '$(resource_group_name)'
+        backendAzureRmStorageAccountName: '$(storage_account_name)'
+        backendAzureRmContainerName: '$(container_name)'
+        backendAzureRmKey: '$(key)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    # - task: terraforminit@0
+    #   displayName: 'Terraform Init'
     #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'plan'
-    #     environmentServiceNameAzureRM: '$(sp_display_name)'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    #     cwd: '$(System.DefaultWorkingDirectory)/terraform'
+    #     useazurerm: true
+    #     azureSubscription: 'eqr-sp'
+    #     #backendConfigPath: 'backendconfigfile'
+    #     initbackend: true
+    #     backendrg: 'eq-tstate-rg'
+    #     backendstorage: 'tstate9522'
+    #     backendcontainer: 'tstate'
+    #     backendKey: 'terraform.tfstate'
     #Terraform plan
-    - task: terraformplan@0
+    - task: TerraformTaskV1@0
       displayName: 'Terraform Plan'
       inputs:
-        cwd: 'workdir'
-        useazurerm: true
-        connectedServiceNameARM: 'eqr-sp'
-        usevarsfile: true
-        usevars: true
-        savePlanResult: false
+        provider: 'azurerm'
+        command: 'plan'
+        environmentServiceNameAzureRM: '$(sp_display_name)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    # - task: terraformplan@0
+    #   displayName: 'Terraform Plan'
+    #   inputs:
+    #     cwd: 'workdir'
+    #     useazurerm: true
+    #     connectedServiceNameARM: 'eqr-sp'
+    #     usevarsfile: true
+    #     usevars: true
+    #     savePlanResult: false
     - task: Bash@3
       displayName: 'Test variables'
       inputs:
