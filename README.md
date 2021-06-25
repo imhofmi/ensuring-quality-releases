@@ -37,7 +37,7 @@ The Deploy stage deploys the artifact generated in the Build stage to the Azure 
 
 ## Test
 
-The Test stage consists of performs three different steps:
+The Test stage consists of three different steps:
 * [Integration Tests](#integration-tests)
 * [Performance Tests](#performance-tests)
 * [UI Tests](#-ui-tests)
@@ -92,11 +92,11 @@ Selenium is used to test a web shop by adding items to a cart and removing them.
 
 An alert is triggered whenever too many 404 errors occur:
 
-![Alarm Rule Graph](screenshots/S12-alarm-rule-graph.PNG "Alarm Rule Graph")
+![Alert Rule Graph](screenshots/S12-alert-rule-graph.PNG "Alert Rule Graph")
 
 It automatically generates eMails as shown below:
 
-![Alarm Rule eMail](screenshots/S13-alarm-rule-email.PNG "Alarm Rule eMail")
+![Alert Rule eMail](screenshots/S13-alert-rule-email.PNG "Alert Rule eMail")
 
 ### Logging
 
