@@ -25,16 +25,17 @@ stages:
     #     backendAzureRmKey: '$(key)'
     #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     - task: terraforminit@0
+      displayName: 'Terraform Init'
       inputs:
-      cwd: '$(System.DefaultWorkingDirectory)/terraform'
-      useazurerm: true
-      azureSubscription: 'eqr-sp'
-      #backendConfigPath: 'backendconfigfile'
-      initbackend: true
-      backendrg: 'eq-tstate-rg'
-      backendstorage: 'tstate9522'
-      backendcontainer: 'tstate'
-      backendKey: 'terraform.tfstate'
+        cwd: '$(System.DefaultWorkingDirectory)/terraform'
+        useazurerm: true
+        azureSubscription: 'eqr-sp'
+        #backendConfigPath: 'backendconfigfile'
+        initbackend: true
+        backendrg: 'eq-tstate-rg'
+        backendstorage: 'tstate9522'
+        backendcontainer: 'tstate'
+        backendKey: 'terraform.tfstate'
     # - task: TerraformTaskV1@0
     #   displayName: 'Terraform Plan'
     #   inputs:
@@ -44,6 +45,7 @@ stages:
     #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     #Terraform plan
     - task: terraformplan@0
+      displayName: 'Terraform Plan'
       inputs:
         cwd: 'workdir'
         useazurerm: true
