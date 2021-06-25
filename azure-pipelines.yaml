@@ -185,6 +185,12 @@ stages:
             unzip chromedriver_linux64.zip
           fi
           export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
+          #Logs
+          if [ ! -d /var/log/selenium ]; then
+                  sudo mkdir /var/log/selenium
+                  sudo chmod 777 /var/log/selenium
+          fi
+          wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh && sh onboard_agent.sh -w 8e5699b9-fe79-40bf-bcaf-67d692b24865 -s FosGOkqkZKshhhBPdylmmkcTsiDw5gJ73JQCnBn4M7+1w0A55CvJC6sl9XlP6pSUILKzp9XVl0FMhV/KqvuYDw== -d opinsights.azure.com
     - task: Bash@3
       displayName: 'Run UI test'
       inputs:
