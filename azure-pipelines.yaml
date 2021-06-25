@@ -33,12 +33,19 @@ stages:
         environmentServiceNameAzureRM: '$(sp_display_name)'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
     #Terraform apply
-    - task: Bash@3
-      displayName: 'Test variables'
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform Apply'
       inputs:
-        targetType: 'inline'
-        script: |
-          echo $(test)
+        provider: 'azurerm'
+        command: 'plan'
+        environmentServiceNameAzureRM: '$(sp_display_name)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    # - task: Bash@3
+    #   displayName: 'Test variables'
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |
+    #       echo $(test)
 
 - stage: Build
   jobs:
