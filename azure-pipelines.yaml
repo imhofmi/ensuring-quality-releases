@@ -129,7 +129,8 @@ stages:
   - job: PerformanceTests
     displayName: Performance Tests
     pool:
-      name: Hosted Ubuntu 1604
+      #name: Hosted Ubuntu 1604
+      vmImage: 'ubuntu-latest'
     steps:
     - task: JMeterInstaller@0
       displayName: 'Install JMeter'
