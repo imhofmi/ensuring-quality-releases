@@ -60,6 +60,10 @@ Test results are uploaded to the pipeline and are directly visible:
 
 ![Test Integration Results](screenshots/S8-test-integration-results.PNG "Test Integration Results")
 
+![Test Integration Run Summary](screenshots/S16-test-integration-run-summary.PNG "Test Integration Run Summary")
+
+![Test Integration Test Results](screenshots/S17-test-integration-test-results.PNG "Test Integration Test Results")
+
 ### Performance Tests
 
 Performance Tests ensure that the webapp can handle the expected load in different situations.
@@ -93,6 +97,8 @@ Selenium is used to test a web shop by adding items to a cart and removing them.
 An alert is triggered whenever too many 404 errors occur:
 
 ![Alert Rule Graph](screenshots/S12-alert-rule-graph.PNG "Alert Rule Graph")
+
+![Alert Rule Metric](screenshots/S18-alert-rule-metric.PNG "Alert Rule Metric")
 
 It automatically generates eMails as shown below:
 
