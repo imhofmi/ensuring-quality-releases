@@ -129,8 +129,8 @@ stages:
   - job: PerformanceTests
     displayName: Performance Tests
     pool:
-      #name: Hosted Ubuntu 1604
-      vmImage: 'ubuntu-latest'
+      name: Hosted Ubuntu 1604
+      #vmImage: 'ubuntu-latest'
     steps:
     - task: JMeterInstaller@0
       displayName: 'Install JMeter'
@@ -187,11 +187,12 @@ stages:
           fi
           export PATH=$PATH:$(Pipeline.Workspace)/chromedriver
           #Logs
-          if [ ! -d /var/log/selenium ]; then
-                  sudo mkdir /var/log/selenium
-                  sudo chmod 777 /var/log/selenium
-          fi
-          #wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh && sh onboard_agent.sh -w bad551bd-412f-47f6-9d49-a2cb39b9ea7f -s 57TEKWb8IuQow5f4tOrl3Did6XtmOr1Q56Bn8ueZ0YgtBMsrWHAyHdN0Eyfbw2XVWv1dENpP9e+ciVgemZuhtw== -d opinsights.azure.com
+          #if [ ! -d /var/log/selenium ]; then
+          #        sudo mkdir /var/log/selenium
+          #        sudo chmod 777 /var/log/selenium
+          #fi
+          #Collect logs by OMS agent installed via command provided in Portal:
+          #wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh && sh onboard_agent.sh -w [...] -s [...] -d opinsights.azure.com
     - task: Bash@3
       displayName: 'Run UI test'
       inputs:
